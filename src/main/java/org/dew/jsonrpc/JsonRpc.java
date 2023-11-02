@@ -5,8 +5,9 @@ import java.util.Map;
 
 import org.dew.demo.Demo;
 
-import org.util.RpcUtil;
-import org.util.WUtil;
+// org.dew:wcollections:1.0.0
+import org.dew.util.RefUtil;
+import org.dew.util.WUtil;
 
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.GET;
@@ -67,12 +68,12 @@ public class JsonRpc {
     }
     
     try {
-      Object result = RpcUtil.invoke(handler, methodName, request.getParams());
+      Object result = RefUtil.invoke(handler, methodName, request.getParams());
       
       return new JsonRpcResponse(request.getId(), result);
     }
     catch(Throwable ex) {
-      return new JsonRpcResponse(request.getId(), new JsonRpcError(SERVER_ERROR_START, ex, RpcUtil.getStackTrace(ex)));
+      return new JsonRpcResponse(request.getId(), new JsonRpcError(SERVER_ERROR_START, ex, RefUtil.getStackTrace(ex)));
     }
   }
 }
