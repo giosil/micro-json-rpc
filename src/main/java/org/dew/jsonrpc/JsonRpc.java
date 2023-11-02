@@ -15,6 +15,9 @@ import jakarta.ws.rs.Path;
 import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
 
+/**
+ * JSON-RPC Endpoint
+ */
 @Path("/rpc")
 public class JsonRpc {
 
@@ -24,7 +27,10 @@ public class JsonRpc {
   public static final int INVALID_PARAMS_ERROR_CODE   = -32602;
   public static final int INTERNAL_ERROR_CODE         = -32603;
   public static final int SERVER_ERROR_START          = -32000;
-
+  
+  /**
+   * Handlers registration.
+   */
   protected static Map<String, Object> handlers = new HashMap<>();
   static {
     handlers.put("DEMO", new Demo());

@@ -2,6 +2,12 @@ package org.dew.jsonrpc;
 
 import java.io.Serializable;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+
+/**
+ * Bean JsonRpcError.
+ */
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class JsonRpcError implements Serializable {
   
   private static final long serialVersionUID = -7151513767123242827L;
