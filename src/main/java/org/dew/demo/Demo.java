@@ -45,6 +45,7 @@ public class Demo {
     result.put("message",    "Hello " + name + "!");
     result.put("dateVal",    new Date(System.currentTimeMillis()));
     result.put("binaryVal",  name.getBytes());
+    result.put("nullVal",    null);
     
     return result;
   }

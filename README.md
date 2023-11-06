@@ -2,14 +2,6 @@
 
 Implementation of JSON-RPC protocol based on Quarkus microservice.
 
-> As much as possible Quarkus tries to avoid reflection, reducing startup time and memory usage.
->
-> *from https://quarkus.io/container-first*
-
-This library necessarily uses reflection.
-
-This project therefore intends to provide a tool for migrating monolithic software towards microservice architectures.
-
 ## Dependencies
 
 **wcollections**
@@ -21,20 +13,7 @@ This project therefore intends to provide a tool for migrating monolithic softwa
 
 The project was created with the following command:
 
-`quarkus create app org.dew.jsonrpc:micro-json-rpc --extension='resteasy-reactive-jackson'`
-
-If you want to add a connection pool to a DBMS:
-
-`quarkus ext add io.quarkus:quarkus-agroal`
-
-This command inserts a new dependency into the pom.xml file
-
-```xml
-    <dependency>
-      <groupId>io.quarkus</groupId>
-      <artifactId>quarkus-agroal</artifactId>
-    </dependency>
-```
+`quarkus create app org.dew.jsonrpc:micro-json-rpc --extension='resteasy-reactive-jsonb'`
 
 To consult the list of dependencies:
 
@@ -43,10 +22,6 @@ To consult the list of dependencies:
 or simply:
 
 `quarkus ext`
-
-To remove a dependency:
-
-`quarkus ext remove io.quarkus:quarkus-agroal`
 
 ## Build with Maven
 
@@ -70,13 +45,56 @@ Build a container friendly executable:
 
 - `quarkus dev`
 
-To enable debug:
+To enable debug :
 
-- `quarkus dev -Dsuspend -Ddebug` - Then, attach your debugger to localhost:5005.
+- `quarkus dev -Dsuspend -Ddebug` 
 
-## Datasource configuration
+Then, attach your debugger to localhost:5005.
 
-Edit `src/main/resources/application.properties`:
+## Test
+
+POST `http://localhost:8080/rpc`
+
+```json
+{
+  "id": 1,
+  "jsonrpc": "2.0",
+  "method": "DEMO.hello",
+  "params": ["world"]
+}
+```
+
+```json
+{
+  "id": 1,
+  "jsonrpc": "2.0",
+  "method": "DEMO.helloObj",
+  "params": ["world"]
+}
+```
+
+## Connection pool
+
+If you want to add a connection pool to a DBMS:
+
+`quarkus ext add io.quarkus:quarkus-agroal`
+
+This command inserts a new dependency into the pom.xml file
+
+```xml
+    <dependency>
+      <groupId>io.quarkus</groupId>
+      <artifactId>quarkus-agroal</artifactId>
+    </dependency>
+```
+
+To remove the dependency:
+
+`quarkus ext remove io.quarkus:quarkus-agroal`
+
+Datasource configuration:
+
+Edit file `src/main/resources/application.properties`:
 
 ```
 quarkus.datasource.db-kind=mariadb

@@ -27,6 +27,10 @@ public class JsonRpc {
     handlers.remove(key);
   }
 
+  public static void clear() {
+    handlers.clear();
+  }
+
   public static JsonRpcResponse invoke(JsonRpcRequest request) {
     if(request == null) {
       return new JsonRpcResponse(new JsonRpcError(INVALID_REQUEST_ERROR_CODE, "Invalid request"));

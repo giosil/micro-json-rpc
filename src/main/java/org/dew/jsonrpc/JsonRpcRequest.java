@@ -4,12 +4,9 @@ import java.io.Serializable;
 
 import java.util.List;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
-
 /**
  * Bean JsonRpcRequest.
  */
-@JsonInclude(JsonInclude.Include.NON_NULL)
 public class JsonRpcRequest implements Serializable {
 
   private static final long serialVersionUID = 1721139321748128545L;

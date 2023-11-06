@@ -29,4 +29,5 @@ public class JsonRpcService {
   public JsonRpcResponse invoke(JsonRpcRequest request) {
     return JsonRpc.invoke(request);
   }
+
 }
