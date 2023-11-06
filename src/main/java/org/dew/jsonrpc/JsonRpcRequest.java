@@ -2,6 +2,8 @@ package org.dew.jsonrpc;
 
 import java.io.Serializable;
 
+import java.util.List;
+
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 /**
@@ -15,7 +17,7 @@ public class JsonRpcRequest implements Serializable {
   protected int id;
   protected String jsonrpc;
   protected String method;
-  protected Object[] params;
+  protected List<Object> params;
 
   public JsonRpcRequest()
   {
@@ -46,11 +48,11 @@ public class JsonRpcRequest implements Serializable {
     this.method = method;
   }
 
-  public Object[] getParams() {
+  public List<Object> getParams() {
     return params;
   }
 
-  public void setParams(Object[] params) {
+  public void setParams(List<Object> params) {
     this.params = params;
   }
   
@@ -70,6 +72,6 @@ public class JsonRpcRequest implements Serializable {
   @Override
   public String toString() {
     if(params == null) return id + "#" + method + "#0";
-    return id + "#" + method + "#" + params.length;
+    return id + "#" + method + "#" + params.size();
   }
 }

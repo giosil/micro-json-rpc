@@ -3,23 +3,9 @@ package org.dew.jsonrpc;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.dew.demo.Demo;
-
-// org.dew:wcollections:1.0.0
+/* external */
 import org.dew.util.RefUtil;
-import org.dew.util.WUtil;
 
-import jakarta.ws.rs.Consumes;
-import jakarta.ws.rs.GET;
-import jakarta.ws.rs.POST;
-import jakarta.ws.rs.Path;
-import jakarta.ws.rs.Produces;
-import jakarta.ws.rs.core.MediaType;
-
-/**
- * JSON-RPC Endpoint
- */
-@Path("/rpc")
 public class JsonRpc {
 
   public static final int PARSE_ERROR_CODE            = -32700;
@@ -28,25 +14,20 @@ public class JsonRpc {
   public static final int INVALID_PARAMS_ERROR_CODE   = -32602;
   public static final int INTERNAL_ERROR_CODE         = -32603;
   public static final int SERVER_ERROR_START          = -32000;
-  
-  /**
-   * Handlers registration.
-   */
+
   protected static Map<String, Object> handlers = new HashMap<>();
-  static {
-    handlers.put("DEMO", new Demo());
+  
+  public static void addHandler(String key, Object handler) {
+    if(key == null || handler == null) return;
+    handlers.put(key, handler);
   }
 
-  @GET
-  @Produces(MediaType.TEXT_PLAIN)
-  public String hello() {
-    return "Hello from JsonRpc.";
+  public static void removeHandler(String key, Object handler) {
+    if(key == null) return;
+    handlers.remove(key);
   }
 
-  @POST
-  @Consumes(MediaType.APPLICATION_JSON)
-  @Produces(MediaType.APPLICATION_JSON)
-  public JsonRpcResponse invoke(JsonRpcRequest request) {
+  public static JsonRpcResponse invoke(JsonRpcRequest request) {
     if(request == null) {
       return new JsonRpcResponse(new JsonRpcError(INVALID_REQUEST_ERROR_CODE, "Invalid request"));
     }
@@ -64,7 +45,7 @@ public class JsonRpc {
     
     Object handler = handlers.get(handlerName);
     if(handler == null) {
-      return new JsonRpcResponse(new JsonRpcError(METHOD_NOT_FOUND_ERROR_CODE, "handler " + WUtil.toHTMLText(handlerName, "") + " not found"));
+      return new JsonRpcResponse(new JsonRpcError(METHOD_NOT_FOUND_ERROR_CODE, "handler " + RefUtil.msgText(handlerName) + " not found"));
     }
     
     try {
