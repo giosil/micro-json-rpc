@@ -4,11 +4,15 @@ import java.sql.Date;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.jboss.logging.Logger;
+
 /**
  * Demo services.
  */
 public class Demo {
-
+  
+  private static final Logger LOG = Logger.getLogger(Demo.class);
+  
   /**
    * hello service.
    * 
@@ -17,6 +21,7 @@ public class Demo {
    * @throws Exception
    */
   public String hello(String name) throws Exception {
+    LOG.debug("hello(" + name + ")...");
     // Validation
     if(name == null || name.length() == 0) {
       throw new Exception("Missing name");
@@ -33,6 +38,7 @@ public class Demo {
    * @throws Exception
    */
   public Map<String, Object> helloObj(String name) throws Exception {
+    LOG.debug("helloObj(" + name + ")...");
     // Validation
     if(name == null || name.length() == 0) {
       throw new Exception("Missing name");
