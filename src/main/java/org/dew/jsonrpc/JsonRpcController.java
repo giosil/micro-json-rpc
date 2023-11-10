@@ -1,7 +1,5 @@
 package org.dew.jsonrpc;
 
-import org.jboss.logging.Logger;
-
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.POST;
@@ -9,13 +7,17 @@ import jakarta.ws.rs.Path;
 import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+
 /**
  * JSON-RPC Endpoint
  */
 @Path("/rpc")
-public class JsonRpcService {
+public class JsonRpcController {
   
-  private static final Logger LOG = Logger.getLogger(JsonRpcService.class);
+  private static final Logger logger = LoggerFactory.getLogger(JsonRpcController.class);
 
   static {
     JsonRpc.addHandler("DEMO", new org.dew.demo.Demo());
@@ -24,7 +26,7 @@ public class JsonRpcService {
   @GET
   @Produces(MediaType.TEXT_PLAIN)
   public String hello() {
-    LOG.debug("JsonRpcService.hello");
+    logger.info("JsonRpcController.hello");
     return "Hello from JsonRpc.";
   }
 
